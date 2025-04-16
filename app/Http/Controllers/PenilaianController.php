@@ -1,41 +1,56 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Tugas;
 use App\Models\Penilaian;
 use Illuminate\Http\Request;
+use App\Models\Tugas;
 
 class PenilaianController extends Controller
 {
-    public function form($id)
+    public function index()
     {
-        $tugas = Tugas::with('user')->findOrFail($id);
-        $penilaian = $tugas->penilaian;
-
-        return view('guru.penilaian_form', compact('tugas', 'penilaian'));
+        $tugas = Tugas::with('user')->get(); // jika relasi user ada
+        return view('guru.penilaian', compact('tugas'));
     }
 
-    public function simpan(Request $request, $id)
-    {
-        $skor = 0;
-        foreach (range(1,5) as $i) {
-            if ($request->has("indikator_$i")) {
-                $skor += 20;
-            }
-        }
+    public function nilaiTugas($id)
+{
+    $tugas = Tugas::with('user')->findOrFail($id);
+    return view('guru.penilaian', compact('tugas'));
+}
 
-        Penilaian::updateOrCreate(
-            ['tugas_id' => $id],
-            [
-                'indikator_1' => $request->boolean('indikator_1'),
-                'indikator_2' => $request->boolean('indikator_2'),
-                'indikator_3' => $request->boolean('indikator_3'),
-                'indikator_4' => $request->boolean('indikator_4'),
-                'indikator_5' => $request->boolean('indikator_5'),
-                'skor_total' => $skor,
-            ]
-        );
+public function simpan(Request $request, $tugas_id)
+{
+    // Validasi agar minimal 1 indikator dipilih
+    $validated = $request->validate([
+        'indikator' => 'required|array|min:1', // Pastikan indikator adalah array dan minimal 1 dipilih
+        'indikator.*' => 'boolean', // Pastikan nilai indikator berupa boolean (true/false)
+    ]);
 
-        return redirect()->route('guru.tugas')->with('success', 'Penilaian berhasil disimpan.');
-    }
+    // Ambil data tugas
+    $tugas = Tugas::findOrFail($tugas_id);
+
+    // Menyimpan data penilaian
+    $penilaian = new Penilaian();
+    $penilaian->tugas_id = $tugas->id;
+
+    // Cek dan simpan nilai indikator
+    $penilaian->indikator_1 = in_array(1, $request->indikator);
+    $penilaian->indikator_2 = in_array(2, $request->indikator);
+    $penilaian->indikator_3 = in_array(3, $request->indikator);
+    $penilaian->indikator_4 = in_array(4, $request->indikator);
+    $penilaian->indikator_5 = in_array(5, $request->indikator);
+
+    // Menghitung skor total berdasarkan indikator yang dipilih
+    $penilaian->skor_total = $penilaian->indikator_1 + $penilaian->indikator_2 + $penilaian->indikator_3 + $penilaian->indikator_4 + $penilaian->indikator_5;
+
+    // Simpan ke database
+    $penilaian->save();
+
+    // Redirect ke halaman penilaian dengan pesan sukses
+    return redirect()->route('penilaian.siswa', $tugas->id)
+                     ->with('success', 'Penilaian berhasil disimpan!');
+}
+
+
 }

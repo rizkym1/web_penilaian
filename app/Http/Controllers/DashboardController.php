@@ -3,21 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tugas;
+use App\Models\Penilaian;
 
 class DashboardController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
-        $total = Tugas::count();
-        $dinilai = Tugas::has('penilaian')->count();
-        $belumDinilai = $total - $dinilai;
+        $totalTugas = Tugas::count();
+        $sudahDinilai = Penilaian::count();
+        $belumDinilai = $totalTugas - $sudahDinilai;
 
-        return view('guru.dashboard', compact('total', 'dinilai', 'belumDinilai'));
-    }
-
-    public function tugas()
-    {
-        $tugas = Tugas::with('user')->get();
-        return view('guru.tugas', compact('tugas'));
+        return view('guru.dashboard', compact('totalTugas', 'sudahDinilai', 'belumDinilai'));
     }
 }

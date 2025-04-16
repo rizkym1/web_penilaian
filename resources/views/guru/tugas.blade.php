@@ -1,19 +1,21 @@
-@extends('layouts.sidebar')
+@extends('layouts.sbadmin')
 
 @section('content')
-<h2>Daftar Tugas Siswa</h2>
+<div class="container-fluid">
+    <h3 class="mb-4">Daftar Tugas Siswa</h3>
 
-<div class="row mt-4">
-    @for($i = 1; $i <= 3; $i++)
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Nama Siswa {{ $i }}</h5>
-                <img src="https://via.placeholder.com/300x200" class="img-fluid rounded mb-3" alt="Foto Tugas">
-                <a href="#" class="btn btn-primary w-100">Nilai Tugas</a>
+    <div class="row">
+        @foreach ($tugas as $item)
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $item->user->name ?? 'Nama tidak ditemukan' }}</h5>
+                        <img src="{{ asset('storage/' . $item->foto) }}" class="img-fluid rounded" alt="Tugas">
+                        <a href="{{ route('penilaian.siswa', $item->id) }}" class="btn btn-primary mt-3">Nilai Tugas</a>
+                    </div>
+                </div>
             </div>
-        </div>
+        @endforeach
     </div>
-    @endfor
 </div>
 @endsection
