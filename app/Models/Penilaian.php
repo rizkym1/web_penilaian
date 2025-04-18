@@ -13,6 +13,8 @@ class Penilaian extends Model
         'indikator_3',
         'indikator_4',
         'indikator_5',
+        'indikator_6',
+        'indikator_7',
         'skor_total',
     ];
 

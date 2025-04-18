@@ -8,12 +8,13 @@ use App\Models\Tugas;
 class PenilaianController extends Controller
 {
     public function index()
-    {
-        $tugas = Tugas::with('user')->get(); // jika relasi user ada
-        return view('guru.penilaian', compact('tugas'));
-    }
+{
+    // Ambil semua tugas dengan relasi user dan penilaian
+    $tugas = Tugas::with(['user', 'penilaian'])->get();
+    return view('guru.tugas', compact('tugas'));
+}
 
-    public function nilaiTugas($id)
+public function nilaiTugas($id)
 {
     $tugas = Tugas::with('user')->findOrFail($id);
     return view('guru.penilaian', compact('tugas'));
@@ -21,36 +22,65 @@ class PenilaianController extends Controller
 
 public function simpan(Request $request, $tugas_id)
 {
-    // Validasi agar minimal 1 indikator dipilih
     $validated = $request->validate([
-        'indikator' => 'required|array|min:1', // Pastikan indikator adalah array dan minimal 1 dipilih
-        'indikator.*' => 'boolean', // Pastikan nilai indikator berupa boolean (true/false)
+        'indikator' => 'required|array|size:7',
     ]);
 
-    // Ambil data tugas
     $tugas = Tugas::findOrFail($tugas_id);
+    $data = $request->input('indikator');
 
-    // Menyimpan data penilaian
-    $penilaian = new Penilaian();
-    $penilaian->tugas_id = $tugas->id;
+    // Ambil nilai tertinggi dari masing-masing indikator
+    $i1 = max($data[1] ?? [0]);
+    $i2 = max($data[2] ?? [0]);
+    $i3 = max($data[3] ?? [0]);
+    $i4 = max($data[4] ?? [0]);
+    $i5 = max($data[5] ?? [0]);
+    $i6 = max($data[6] ?? [0]);
+    $i7 = max($data[7] ?? [0]);
 
-    // Cek dan simpan nilai indikator
-    $penilaian->indikator_1 = in_array(1, $request->indikator);
-    $penilaian->indikator_2 = in_array(2, $request->indikator);
-    $penilaian->indikator_3 = in_array(3, $request->indikator);
-    $penilaian->indikator_4 = in_array(4, $request->indikator);
-    $penilaian->indikator_5 = in_array(5, $request->indikator);
+    $skorTotal = $i1 + $i2 + $i3 + $i4 + $i5 + $i6 + $i7;
+    $nilaiAkhir = intval($skorTotal * 100 / 28); // konversi ke 1–100
 
-    // Menghitung skor total berdasarkan indikator yang dipilih
-    $penilaian->skor_total = $penilaian->indikator_1 + $penilaian->indikator_2 + $penilaian->indikator_3 + $penilaian->indikator_4 + $penilaian->indikator_5;
+    // Tentukan kategori berdasarkan skor total
+    if ($skorTotal >= 25) {
+        $kategori = 'Sangat Baik';
+    } elseif ($skorTotal >= 19) {
+        $kategori = 'Baik';
+    } elseif ($skorTotal >= 13) {
+        $kategori = 'Cukup';
+    } elseif ($skorTotal >= 7) {
+        $kategori = 'Perlu Bimbingan';
+    } else {
+        $kategori = 'Tidak Dinilai';
+    }
 
-    // Simpan ke database
-    $penilaian->save();
+    // Simpan nilai integer tertinggi dari setiap indikator, bukan array JSON
+    Penilaian::updateOrCreate(
+        ['tugas_id' => $tugas_id],
+        [
+            'indikator_1' => (int)$i1,
+            'indikator_2' => (int)$i2,
+            'indikator_3' => (int)$i3,
+            'indikator_4' => (int)$i4,
+            'indikator_5' => (int)$i5,
+            'indikator_6' => (int)$i6,
+            'indikator_7' => (int)$i7,
+            'skor_total' => $skorTotal,
+            'nilai_akhir' => $nilaiAkhir,
+            'kategori' => $kategori
+        ]
+    );
 
-    // Redirect ke halaman penilaian dengan pesan sukses
-    return redirect()->route('penilaian.siswa', $tugas->id)
-                     ->with('success', 'Penilaian berhasil disimpan!');
+    // Kirim info ke tampilan
+    return redirect()
+        ->route('penilaian.siswa', $tugas_id)
+        ->with('success', "Penilaian berhasil disimpan! Total Skor: $skorTotal / 28. Nilai: $nilaiAkhir. Kategori: $kategori");
 }
+
+
+
+
+
 
 
 }

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->boolean('indikator_3')->default(false);
             $table->boolean('indikator_4')->default(false);
             $table->boolean('indikator_5')->default(false);
+            $table->boolean('indikator_6')->default(false);
+            $table->boolean('indikator_7')->default(false);
             $table->integer('skor_total')->default(0);
             $table->timestamps();
         });

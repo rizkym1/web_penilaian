@@ -20,7 +20,7 @@
             <hr class="sidebar-divider my-0">
             <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('tugas.index') }}"><i class="fas fa-book"></i> <span>Daftar Tugas</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('penilaian.index') }}"><i class="fas fa-pen"></i> <span>Penilaian</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-pen"></i> <span>Log Out</span></a></li>
         </ul>
 
         <!-- Content -->

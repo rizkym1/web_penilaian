@@ -1,37 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Upload Tugas</title>
+    <meta charset="UTF-8">
+    <title>Upload Tugas Siswa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts untuk font anak-anak -->
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #FFF9EC;
+            font-family: 'Comic Neue', cursive;
+        }
+        .card {
+            border-radius: 20px;
+            border: 3px dashed #FFD93D;
+        }
+        .card-header {
+            background-color: #FF9B9B;
+            color: white;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #6BCB77;
+            border: none;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #4CAF50;
+        }
+        .btn-secondary {
+            background-color: #74C0FC;
+            font-weight: bold;
+            border: none;
+        }
+        .btn-secondary:hover {
+            background-color: #4DABF7;
+        }
+        h2 {
+            color: #FF6B6B;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h2>Upload Tugas (Siswa)</h2>
 
-    @if(session('success'))
-        <p style="color: green">{{ session('success') }}</p>
-    @endif
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">📚 Upload Tugas Siswa</h2>
 
-    <form action="/tugas/upload" method="POST" enctype="multipart/form-data">
-        @csrf
-        <label>Nama:</label><br>
-        <input type="text" name="nama" required><br><br>
+            @if(session('success'))
+                <div class="alert alert-success text-center">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-        <label>Upload Foto:</label><br>
-        <input type="file" name="foto" required><br><br>
+            <div class="card shadow">
+                <div class="card-header">
+                    Formulir Pengumpulan Tugas
+                </div>
+                <div class="card-body">
+                    <form action="/upload-tugas" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">👦 Nama Siswa</label>
+                            <input type="text" class="form-control" id="nama" name="nama" required>
+                        </div>
 
-        <button type="submit">Upload</button>
-    </form>
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">📷 Foto Tugas</label>
+                            <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
+                        </div>
 
-    <br>
-    <a href="/tugas/nilai?nama=" onclick="return masukkanNama()">Lihat Nilai</a>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">🚀 Kirim Tugas</button>
+                            <a href="/lihat-nilai" class="btn btn-secondary">🔍 Lihat Nilai</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-    <script>
-        function masukkanNama() {
-            const nama = prompt('Masukkan nama Anda:');
-            if (nama) {
-                window.location.href = '/tugas/nilai?nama=' + encodeURIComponent(nama);
-            }
-            return false;
-        }
-    </script>
+            <p class="text-center mt-3 text-muted" style="font-size: 14px;">
+                Ayo semangat belajar! 🎓💡
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
