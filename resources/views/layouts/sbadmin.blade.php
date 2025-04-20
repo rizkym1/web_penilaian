@@ -20,20 +20,29 @@
             <hr class="sidebar-divider my-0">
             <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('tugas.index') }}"><i class="fas fa-book"></i> <span>Daftar Tugas</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-pen"></i> <span>Log Out</span></a></li>
+
+            <!-- Tombol Logout -->
+            <li class="nav-item">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="nav-link btn btn-link text-start" style="color: #fff;">
+                        <i class="fas fa-sign-out-alt"></i> <span>Keluar</span>
+                    </button>
+                </form>
+            </li>
         </ul>
 
         <!-- Content -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content" class="p-4">
                 @yield('content')
-                @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
 
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

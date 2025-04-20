@@ -8,7 +8,7 @@ use App\Models\Tugas;
 
 class UploadTugasController extends Controller
 {
-    public function form()
+    public function index()
     {
         return view('siswa.upload');
     }
