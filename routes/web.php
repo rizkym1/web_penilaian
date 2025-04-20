@@ -32,8 +32,8 @@ Route::middleware('auth', 'siswa')->group(function(){
 Route::post('/upload-tugas', [UploadTugasController::class, 'simpan']);
 
 
-Route::get('/lihat-nilai', [LihatNilaiController::class, 'form']);
-Route::post('/lihat-nilai', [LihatNilaiController::class, 'lihat']);
+// Route::get('/lihat-nilai', [LihatNilaiController::class, 'form']);
+Route::get('/lihat-nilai', [LihatNilaiController::class, 'lihat'])->name('lihat-nilai');
 
 
 });

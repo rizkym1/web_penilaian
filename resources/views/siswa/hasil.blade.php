@@ -71,7 +71,7 @@
     @endforeach
 
     <div class="text-center mt-4">
-        <a href="/lihat-nilai" class="btn btn-back px-4 py-2">🔙 Kembali</a>
+        <a href="{{ route('siswa.index') }}" class="btn btn-back px-4 py-2">🔙 Kembali</a>
     </div>
 </div>
 

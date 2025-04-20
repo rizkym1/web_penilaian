@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <title>Upload Tugas Siswa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
-
     <style>
         body {
             background-color: #FFF9EC;
@@ -57,10 +54,19 @@
 </head>
 <body>
 
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2 class="text-center mb-4">📚 Upload Tugas Siswa</h2>
+            <h2 class="text-center mb-3">📚 Upload Tugas Siswa</h2>
+
+            <div class="text-center mb-3">
+                <h5>👋 Selamat datang, <strong>{{ Auth::user()->name }}</strong>!</h5>
+                <p class="text-muted">Silakan kirimkan tugas kamu melalui form di bawah ini.</p>
+            </div>
 
             @if(session('success'))
                 <div class="alert alert-success text-center">
@@ -76,11 +82,6 @@
                     <form action="/upload-tugas" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="nama" class="form-label">👦 Nama Siswa</label>
-                            <input type="text" class="form-control" id="nama" name="nama" required>
-                        </div>
-
-                        <div class="mb-3">
                             <label for="foto" class="form-label">📷 Foto Tugas</label>
                             <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
                         </div>
@@ -91,7 +92,6 @@
                         </div>
                     </form>
 
-                    <!-- Tombol Logout -->
                     <form action="{{ route('logout') }}" method="POST" class="mt-3 d-grid gap-2">
                         @csrf
                         <button type="submit" class="btn btn-danger">🚪 Keluar</button>
@@ -106,7 +106,6 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

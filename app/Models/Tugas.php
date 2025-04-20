@@ -18,4 +18,3 @@ class Tugas extends Model
         return $this->hasOne(Penilaian::class);
     }
 }
-
