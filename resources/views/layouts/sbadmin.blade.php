@@ -30,6 +30,12 @@
                     <span>Daftar Tugas</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.index') }}">
+                    <i class="fas fa-book"></i>
+                    <span>Data Users</span>
+                </a>
+            </li>
 
             <!-- Tombol Logout -->
             {{-- <li class="nav-item">

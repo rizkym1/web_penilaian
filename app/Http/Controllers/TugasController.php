@@ -17,4 +17,13 @@ class TugasController extends Controller
     $tugas = Tugas::findOrFail($id);
     return view('guru.penilaian', compact('tugas'));
 }
+
+public function destroy($id)
+{
+    $tugas = Tugas::findOrFail($id);
+    $tugas->delete();
+    
+    return redirect()->route('tugas.index')->with('success', 'Tugas berhasil dihapus!');
+}
+
 }
