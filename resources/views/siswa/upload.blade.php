@@ -92,16 +92,37 @@
                         </div>
                     </form>
 
-                    <form action="{{ route('logout') }}" method="POST" class="mt-3 d-grid gap-2">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">🚪 Keluar</button>
-                    </form>
+                    <!-- Tombol Keluar yang memicu modal konfirmasi -->
+                    <button class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#logoutModal">🚪 Keluar</button>
                 </div>
             </div>
 
             <p class="text-center mt-3 text-muted" style="font-size: 14px;">
                 Ayo semangat belajar! 🎓💡
             </p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Keluar -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Keluar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin keluar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <!-- Form logout dengan POST method -->
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Ya, Keluar</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -23,7 +23,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('penilaian.simpan', $tugas->id) }}" method="POST">
+            <form id="formPenilaian" action="{{ route('penilaian.simpan', $tugas->id) }}" method="POST">
                 @csrf
 
                 <div class="table-responsive">
@@ -64,14 +64,10 @@
                                         @php
                                             $indikatorKey = "indikator_$key";
                                             $checked = false;
-                                            
-                                            // Cek jika data ada di old input (dari validasi error)
+
                                             if (old("indikator.$key") && in_array($skor, old("indikator.$key"))) {
                                                 $checked = true;
-                                            }
-                                            // Jika tidak ada di old input, cek dari penilaian yang sudah ada
-                                            elseif (isset($tugas->penilaian) && $tugas->penilaian->$indikatorKey) {
-                                                // Periksa apakah nilai indikator sama dengan skor saat ini
+                                            } elseif (isset($tugas->penilaian) && $tugas->penilaian->$indikatorKey) {
                                                 $checked = (int)$tugas->penilaian->$indikatorKey === $skor;
                                             }
                                         @endphp
@@ -85,9 +81,48 @@
                     </table>
                 </div>
 
-                <button type="submit" class="btn btn-success mt-3">Simpan Penilaian</button>
+                <div class="form-group mt-4">
+                    <label for="komentar">Komentar</label>
+                    <textarea name="komentar" id="komentar" class="form-control" rows="3">{{ old('komentar', $tugas->penilaian->komentar ?? '') }}</textarea>
+                </div>
+
+                <button type="button" class="btn btn-success mt-3" id="btnSimpan">Simpan Penilaian</button>
             </form>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // // Tampilkan notifikasi jika penilaian berhasil
+    // @if(session('success'))
+    //     Swal.fire({
+    //         icon: 'success',
+    //         title: 'Berhasil!',
+    //         text: '{{ session("success") }}',
+    //         showConfirmButton: false,
+    //         timer: 2000
+    //     });
+    // @endif
+
+    // Konfirmasi sebelum simpan penilaian
+    document.getElementById('btnSimpan').addEventListener('click', function(e) {
+        Swal.fire({
+            title: 'Yakin ingin menyimpan penilaian?',
+            text: "Pastikan semua aspek telah dinilai.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#198754',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, simpan!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('formPenilaian').submit();
+            }
+        });
+    });
+</script>
 @endsection

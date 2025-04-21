@@ -1,7 +1,7 @@
 @extends('layouts.sbadmin')
 
 @section('content')
-<h1 class="h3 mb-4 text-gray-800">Dashboard Guru</h1>
+<h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
 <div class="row">
     <div class="col-md-4">
         <div class="card border-left-primary shadow py-2">

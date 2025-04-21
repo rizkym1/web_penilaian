@@ -16,7 +16,11 @@ class Penilaian extends Model
         'indikator_6',
         'indikator_7',
         'skor_total',
+        'nilai_akhir',
+        'kategori',
+        'komentar',
     ];
+    
 
     public function tugas()
     {

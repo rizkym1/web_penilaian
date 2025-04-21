@@ -22,8 +22,14 @@ return new class extends Migration
             $table->boolean('indikator_6')->default(false);
             $table->boolean('indikator_7')->default(false);
             $table->integer('skor_total')->default(0);
+        
+            // Kolom tambahan
+            $table->string('kategori')->nullable();     // contoh isi: 'Baik', 'Cukup'
+            $table->text('komentar')->nullable();       // komentar tambahan dari guru
+        
             $table->timestamps();
         });
+        
     }
 
     /**

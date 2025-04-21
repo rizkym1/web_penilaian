@@ -6,22 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('penilaians', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('penilaians', function (Blueprint $table) {
+            $table->integer('nilai_akhir')->nullable()->after('skor_total');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('penilaians');
+        Schema::table('penilaians', function (Blueprint $table) {
+            $table->dropColumn('nilai_akhir');
+        });
     }
 };
+

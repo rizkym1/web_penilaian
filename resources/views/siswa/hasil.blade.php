@@ -42,6 +42,12 @@
         .btn-back:hover {
             background-color: #FFC300;
         }
+        .komentar {
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -63,6 +69,14 @@
                     @endphp
 
                     <p class="nilai-box">🎉 Nilai Anda: {{ $hasil }} / 100</p>
+                    <p><strong>Kategori:</strong> {{ $item->penilaian->kategori }}</p>
+
+                    @if($item->penilaian->komentar)
+                        <div class="komentar">
+                            <strong>💬 Komentar Guru:</strong><br>
+                            {{ $item->penilaian->komentar }}
+                        </div>
+                    @endif
                 @else
                     <p class="text-muted"><em>Belum dinilai.</em></p>
                 @endif
