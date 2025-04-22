@@ -29,6 +29,12 @@
             font-weight: bold;
             color: #74C0FC;
             text-align: center;
+            margin-bottom: 10px;
+        }
+        .login-subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 16px;
             margin-bottom: 25px;
         }
         .form-label {
@@ -84,6 +90,11 @@
     <div class="login-container">
         <div class="login-card">
             <div class="login-title">🎒 Selamat Datang!</div>
+            <div class="login-subtitle">
+                <strong>Erma rosmawati 230797</strong><br>
+                Dosen Pembimbing 1: <strong>Dr. Heri Yusuf Muslihin M.Pd.</strong><br>
+                Dosen Pembimbing 2: <strong>Dr. seni apriliya, M. Pd.</strong>
+            </div>
 
             <!-- Session Status -->
             <x-auth-session-status class="mb-3" :status="session('status')" />
