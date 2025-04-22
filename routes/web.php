@@ -10,7 +10,13 @@ use App\Http\Controllers\LihatNilaiController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\TugasController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Artisan;
 use Maatwebsite\Excel\Facades\Excel;
+
+Route::get('/storage-link', function () {
+  Artisan::call('storage-link');
+  return 'Storage linked Succcessfully';
+});
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
