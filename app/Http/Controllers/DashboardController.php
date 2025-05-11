@@ -24,5 +24,17 @@ class DashboardController extends Controller
 
         return view('guru.dashboard', compact('totalTugas', 'sudahDinilai', 'belumDinilai'));
     }
+
+    public function rubrik(){
+        return view('guru.rubrik');
+    }
+
+    public function panduan(){
+        return view('guru.panduan');
+    }
+
+    public function tentang(){
+        return view('guru.tentang');
+    }
 }
 

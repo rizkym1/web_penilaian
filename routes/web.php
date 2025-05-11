@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadTugasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LihatNilaiController;
 use App\Http\Controllers\PenilaianController;
@@ -22,13 +23,13 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', function(){
+  return view('landing');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -59,6 +60,9 @@ Route::get('/penilaian/{id}', [PenilaianController::class, 'nilaiTugas'])->name(
 
 // Route::post('/penilaian/{id}', [PenilaianController::class, 'simpan'])->name('penilaian.simpan');
 Route::post('/penilaian/{tugas}/simpan', [PenilaianController::class, 'simpan'])->name('penilaian.simpan');
+Route::get('/rubrik', [DashboardController::class, 'rubrik'])->name('rubrik.index');
+Route::get('/panduan', [DashboardController::class, 'panduan'])->name('panduan.index');
+Route::get('/tentang', [DashboardController::class, 'tentang'])->name('tentang.index');
 // Route::get('/export', function () {
 //   return Excel::download(new PenilaianExport, 'penilaian.xlsx');
 // })->name('penilaian.export');

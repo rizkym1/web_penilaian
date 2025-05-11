@@ -12,13 +12,13 @@
 
     <style>
         body {
-            background-color: #FFF7E9;
+            background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 100%);
             font-family: 'Comic Neue', cursive;
         }
         .card {
             border-radius: 20px;
             border: 3px dashed #FFAD60;
-            background-color: #FFFBF5;
+            background-color: rgba(255, 251, 245, 0.95); /* transparan biar teks tetap jelas */
         }
         .card-header {
             background-color: #74C0FC;

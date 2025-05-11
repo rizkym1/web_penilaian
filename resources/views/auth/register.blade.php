@@ -1,122 +1,212 @@
-<x-guest-layout>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Rubrik Penilaian</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #FDF6EC;
+            background-color: #f3f975;
             font-family: 'Comic Neue', cursive;
         }
-        .register-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .register-card {
-            background-color: #FFF;
-            border: 3px solid #FFB84C;
-            border-radius: 20px;
-            padding: 2rem 2.5rem;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .register-title {
-            font-size: 26px;
+
+        .main-title {
+            color: #2abed5;
+            font-size: 2.2rem;
             font-weight: bold;
-            color: #FF6B6B;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-top: 20px;
+            line-height: 1.3;
         }
+
+        .pencils-top, .pencils-bottom {
+            width: 100%;
+            height: auto;
+            max-height: 210px;
+            object-fit: cover;
+        }
+
+        .login-container {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            border: 2px dashed #ff9966;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 550px;
+        }
+
+        .welcome-text {
+            font-family: 'Impact', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
         .form-label {
             font-weight: bold;
-            color: #333;
-            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
         }
+
         .form-control {
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-size: 15px;
+            border-radius: 10px;
+            background-color: #e6f2ff;
+            padding: 12px;
             border: 1px solid #ccc;
-            width: 100%;
+            font-size: 1.1rem;
         }
-        .btn-register {
-            background-color: #FFD93D;
+
+        .teacher-img {
+            max-width: 150px;
+            margin-right: 20px;
+        }
+
+        .btn-login {
+            background-color: #ffdd57;
             border: none;
-            color: #333;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 10px 0;
             font-weight: bold;
             width: 100%;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            font-size: 1.2rem;
+            margin-top: 15px;
         }
-        .btn-register:hover {
-            background-color: #FFC107;
+
+        .btn-login:hover {
+            background-color: #ffd117;
         }
-        .text-center {
+
+        .register-text {
             text-align: center;
+            margin-top: 20px;
+            font-size: 1rem;
         }
-        .login-link {
-            margin-top: 1rem;
-            font-size: 14px;
-        }
-        .login-link a {
-            color: #4D96FF;
+
+        .register-link {
+            color: #ff6b6b;
             font-weight: bold;
             text-decoration: none;
         }
-        .login-link a:hover {
+
+        .register-link:hover {
             text-decoration: underline;
         }
+
+        .text-danger {
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 1.8rem;
+            }
+
+            .welcome-text {
+                font-size: 2rem;
+            }
+
+            .teacher-img {
+                max-width: 100px;
+            }
+
+            .pencils-top, .pencils-bottom {
+                max-height: 60px;
+            }
+        }
     </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
 
-    <!-- Google Font Lucu -->
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+    <!-- Pencils Top -->
+    <img src="{{ asset('img/pensil_atas.png') }}" alt="Pencils Top" class="pencils-top">
 
-    <div class="register-container">
-        <div class="register-card">
-            <div class="register-title">🎒 Daftar Akun</div>
+    <div class="container flex-grow-1">
+        <!-- Main Title -->
+        <h1 class="main-title">RUBRIK PENILAIAN<br>MENULIS TEKS EKSPLANASI<br>KELAS V SEKOLAH DASAR</h1>
+
+        <!-- Register Container -->
+        <div class="login-container">
+            <div class="welcome-text">DAFTAR AKUN</div>
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
-                <!-- Nama -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">👦 Nama Lengkap</label>
-                    <input id="name" type="text" name="name" :value="old('name')" class="form-control" required autofocus>
-                    <x-input-error :messages="$errors->get('name')" class="mt-1" />
-                </div>
+                <div class="row">
+                    <!-- Teacher Image -->
+                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        <img src="{{ asset('img/guru.png') }}" alt="Guru" class="teacher-img">
+                    </div>
 
-                <!-- Email -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">📧 Email</label>
-                    <input id="email" type="email" name="email" :value="old('email')" class="form-control" required>
-                    <x-input-error :messages="$errors->get('email')" class="mt-1" />
-                </div>
+                    <!-- Register Form -->
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">
+                                <span>👤</span> Nama
+                            </label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                <!-- Password -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">🔐 Password</label>
-                    <input id="password" type="password" name="password" class="form-control" required>
-                    <x-input-error :messages="$errors->get('password')" class="mt-1" />
-                </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                <span>📧</span> Email
+                            </label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                            @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                <!-- Konfirmasi Password -->
-                <div class="mb-3">
-                    <label for="password_confirmation" class="form-label">🔁 Ulangi Password</label>
-                    <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" required>
-                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
-                </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                <span>🔒</span> Password
+                            </label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                            @error('password')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                <!-- Tombol Daftar -->
-                <div class="mb-3">
-                    <button type="submit" class="btn-register">🎉 Daftar Sekarang</button>
-                </div>
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">
+                                <span>🔁</span> Konfirmasi Password
+                            </label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                        </div>
 
-                <!-- Sudah punya akun -->
-                <div class="text-center login-link">
-                    Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
+                        <button type="submit" class="btn-login">
+                            📝 Daftar
+                        </button>
+
+                        <div class="register-text">
+                            Sudah punya akun? <a href="{{ route('login') }}" class="register-link">Masuk Sekarang</a>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-</x-guest-layout>
+
+    <!-- Pencils Bottom -->
+    <footer class="mt-auto">
+        <img src="{{ asset('img/pensil_bawah.png') }}" alt="Pencils Bottom" class="pencils-bottom">
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

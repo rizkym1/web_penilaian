@@ -2,105 +2,255 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Guru Panel</title>
+    <title>Panel Guru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- SB Admin CSS -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('sb-admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('sb-admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #e8f855;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            background-image: url('{{ asset('images/pencil-bg.png') }}');
+            background-repeat: repeat-x;
+            background-position: bottom;
+        }
+        
+        .sidebar {
+            background-color: #d9d9d9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-header {
+            font-size: 2rem;
+            color: #22bbd4;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .nav-link {
+            color: #22bbd4 !important;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .content-area {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-card {
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            height: 100%;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .stats-total {
+            background-color: #e3f2fd;
+            border-left: 5px solid #2196F3;
+        }
+        
+        .stats-graded {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .stats-pending {
+            background-color: #fff8e1;
+            border-left: 5px solid #FFC107;
+        }
+        
+        .page-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .stats-label {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        .header-area {
+            background-color: #e8f855;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-title {
+            color: #22bbd4;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .header-subtitle {
+            color: #2196F3;
+            font-size: 1.2rem;
+        }
+        
+        /* Top pencil border */
+        .pencils-top, .pencils-bottom {
+            width: 100%;
+            height: auto;
+            max-height: 210px;
+            object-fit: cover;
+        }
+        
+        .admin-img {
+            height: 80px;
+        }
+        
+        .admin-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .admin-name {
+            color: #000000;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+    </style>
 </head>
-<body id="page-top">
+<body>
+    <!-- Backsound Music (auto play, loop) -->
+    <audio autoplay loop>
+        <source src="{{ asset('music/45754237_corporate-upbeat_by_alexandersizonenko_preview.mp3') }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-                <div class="sidebar-brand-text mx-3">Guru Panel</div>
-            </a>
-            <hr class="sidebar-divider my-0">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard') }}">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('tugas.index') }}">
-                    <i class="fas fa-book"></i>
-                    <span>Daftar Tugas</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('users.index') }}">
-                    <i class="fas fa-book"></i>
-                    <span>Data Users</span>
-                </a>
-            </li>
-
-            <!-- Tombol Logout -->
-            {{-- <li class="nav-item">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="nav-link btn btn-link text-start" style="color: #fff;">
-                        <i class="fas fa-sign-out-alt"></i> <span>Keluar</span>
-                    </button>
-                </form>
-            </li> --}}
-        </ul>
-
-        <!-- Content -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Divider -->
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- User Info -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name ?? 'Guru' }}</span>
-                                <i class="fas fa-user-circle fa-lg text-gray-600"></i>
+    <!-- Top pencil border -->
+    <img src="{{ asset('img/pensil_atas.png') }}" class="pencils-top" alt="Pencils Top">
+    
+    <div class="container-fluid my-4">
+        <div class="row g-4">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <div class="sidebar-header">PANEL GURU</div>
+                    
+                    <ul class="nav flex-column">
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" href="{{ route('dashboard') }}">
+                                <i class="fas fa-home me-2"></i> DASHBOARD
                             </a>
-                            <!-- Dropdown - User Info -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form-topbar').submit();">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
-                                </a>
-                                <form id="logout-form-topbar" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold" href="{{ route('rubrik.index') }}">
+                                <i class="fas fa-clipboard-list me-2"></i> RUBRIK PENILAIAN
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold" href="{{ route('tugas.index') }}">
+                                <i class="fas fa-book me-2"></i> DAFTAR TUGAS
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold" href="{{ route('users.index') }}">
+                                <i class="fas fa-users me-2"></i> DATA USER
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold" href="{{ route('panduan.index') }}">
+                                <i class="fas fa-question-circle me-2"></i> PANDUAN PENGGUNA
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold" href="{{ route('tentang.index') }}">
+                                <i class="fas fa-info-circle me-2"></i> TENTANG WEBSITE
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="nav-link btn w-100 text-start">
+                                    <i class="fas fa-sign-out-alt me-2"></i> KELUAR
+                                </button>
+                            </form>
                         </li>
                     </ul>
-                </nav>
-
-                <!-- Main Content -->
-                <div class="container-fluid">
-                    @yield('content')
-
-                    {{-- @if (session('success'))
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Header Area -->
+                <div class="header-area mb-4">
+                    <div class="header-content">
+                        <h2 class="header-title">RUBRIK PENILAIAN</h2>
+                        <h3 class="header-title">MENULIS TEKS EKSPLANASI</h3>
+                        <h3 class="header-title">KELAS V SEKOLAH DASAR</h3>
+                    </div>
+                    <div class="admin-container">
+                        <img src="{{ asset('img/admin.png') }}" class="admin-img" alt="Admin">
+                        <span class="admin-name">{{ Auth::user()->name }}</span>
+                    </div>
+                </div>
+                
+                <!-- Content Area -->
+                <div class="content-area">
+                    @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                             {{ session('success') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                    @endif --}}
+                    @endif
+                    
+                    @yield('content')
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Bottom pencil border -->
+    <footer class="mt-auto">
+        <img src="{{ asset('img/pensil_bawah.png') }}" class="pencils-bottom" alt="Pencils Bottom">
+    </footer>
 
     <!-- Scripts -->
-    <script src="{{ asset('sb-admin/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('sb-admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('sb-admin/js/sb-admin-2.min.js') }}"></script>
 
     @yield('scripts')

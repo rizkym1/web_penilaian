@@ -1,139 +1,182 @@
-<x-guest-layout>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- Meta & Fonts -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Rubrik Penilaian</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         body {
-            background-color: #FFF7E9;
+            background-color: #f3f975;
             font-family: 'Comic Neue', cursive;
         }
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .login-card {
-            background-color: #FFFBF5;
-            border: 3px dashed #FFA447;
-            border-radius: 25px;
-            padding: 2.5rem;
-            max-width: 450px;
-            width: 100%;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 0.7s ease;
-        }
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(15px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-        .login-title {
-            font-size: 30px;
+
+        .main-title {
+            color: #2abed5;
+            font-size: 2.2rem;
             font-weight: bold;
-            color: #74C0FC;
             text-align: center;
-            margin-bottom: 10px;
+            margin-top: 20px;
+            line-height: 1.3;
         }
-        .login-subtitle {
+
+        .pencils-top, .pencils-bottom {
+            width: 100%;
+            height: auto;
+            max-height: 210px;
+            object-fit: cover;
+        }
+
+        .login-container {
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            border: 2px dashed #ff9966;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 550px;
+        }
+
+        .welcome-text {
+            font-family: 'Impact', sans-serif;
+            font-size: 2.5rem;
             text-align: center;
-            color: #888;
-            font-size: 16px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
         }
+
         .form-label {
             font-weight: bold;
-            color: #333;
-            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
         }
+
         .form-control {
             border-radius: 10px;
-            padding: 10px 14px;
-            font-size: 15px;
+            background-color: #e6f2ff;
+            padding: 12px;
             border: 1px solid #ccc;
-            width: 100%;
+            font-size: 1.1rem;
         }
-        .form-check-label {
-            font-size: 14px;
-            color: #555;
+
+        .teacher-img {
+            max-width: 150px;
+            margin-right: 20px;
         }
+
         .btn-login {
-            background-color: #FFD93D;
+            background-color: #ffdd57;
             border: none;
-            color: #333;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 10px 0;
             font-weight: bold;
-            font-size: 16px;
             width: 100%;
-            transition: background-color 0.3s ease;
+            font-size: 1.2rem;
+            margin-top: 15px;
         }
+
         .btn-login:hover {
-            background-color: #FFC107;
+            background-color: #ffd117;
         }
-        .text-center {
-            text-align: center;
-        }
+
         .register-text {
-            margin-top: 1.5rem;
-            font-size: 14px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1rem;
         }
-        .register-text a {
-            color: #FF6B6B;
+
+        .register-link {
+            color: #ff6b6b;
             font-weight: bold;
             text-decoration: none;
         }
-        .register-text a:hover {
+
+        .register-link:hover {
             text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 1.8rem;
+            }
+
+            .welcome-text {
+                font-size: 2rem;
+            }
+
+            .teacher-img {
+                max-width: 100px;
+            }
+
+            .pencils-top, .pencils-bottom {
+                max-height: 60px;
+            }
         }
     </style>
 
-    <!-- Font Lucu -->
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <img src="{{ asset('img/pensil_atas.png') }}" class="pencils-top" alt="Pencils Top">
 
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-title">🎒 Selamat Datang!</div>
-            <div class="login-subtitle">
-                <strong>Erma rosmawati 230797</strong><br>
-                Dosen Pembimbing 1: <strong>Dr. Heri Yusuf Muslihin M.Pd.</strong><br>
-                Dosen Pembimbing 2: <strong>Dr. seni apriliya, M. Pd.</strong>
-            </div>
+    <div class="container flex-grow-1">
+        <h1 class="main-title">RUBRIK PENILAIAN<br>MENULIS TEKS EKSPLANASI<br>KELAS V SEKOLAH DASAR</h1>
+
+        <div class="login-container">
+            <div class="welcome-text">SELAMAT DATANG</div>
 
             <!-- Session Status -->
             <x-auth-session-status class="mb-3" :status="session('status')" />
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center">
+                        <img src="{{ asset('img/guru.png') }}" class="teacher-img" alt="Guru">
+                    </div>
 
-                <!-- Email -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">📧 Email</label>
-                    <input type="email" id="email" name="email" :value="old('email')" class="form-control" required autofocus>
-                    <x-input-error :messages="$errors->get('email')" class="mt-1" />
-                </div>
+                    <div class="col-md-8">
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><span>📧</span> Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required autofocus>
+                            <x-input-error :messages="$errors->get('email')" class="mt-1" />
+                        </div>
 
-                <!-- Password -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">🔒 Password</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
-                    <x-input-error :messages="$errors->get('password')" class="mt-1" />
-                </div>
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label"><span>🔒</span> Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                            <x-input-error :messages="$errors->get('password')" class="mt-1" />
+                        </div>
 
-                <!-- Remember Me -->
-                <div class="mb-3">
-                    <label class="form-check-label">
-                        <input type="checkbox" name="remember" class="form-check-input">
-                        Ingat saya
-                    </label>
-                </div>
+                        <!-- Remember -->
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                                <label class="form-check-label" for="remember">Ingat saya</label>
+                            </div>
+                        </div>
 
-                <!-- Tombol Login -->
-                <div class="mb-3">
-                    <button type="submit" class="btn-login">🚀 Masuk</button>
-                </div>
+                        <!-- Submit -->
+                        <button type="submit" class="btn-login">🚀 Masuk</button>
 
-                <!-- Register Link -->
-                <div class="text-center register-text">
-                    Belum punya akun? <a href="{{ route('register') }}">Daftar Sekarang</a>
+                        <div class="register-text">
+                            Belum punya akun? <a href="{{ route('register') }}" class="register-link">Daftar Sekarang</a>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-</x-guest-layout>
+
+    <footer class="mt-auto">
+        <img src="{{ asset('img/pensil_bawah.png') }}" class="pencils-bottom" alt="Pencils Bottom">
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
