@@ -204,6 +204,9 @@
     <!-- Pencils Bottom -->
     <footer class="mt-auto">
         <img src="{{ asset('img/pensil_bawah.png') }}" alt="Pencils Bottom" class="pencils-bottom">
+        <div class="text-center py-3" style="background-color: #f8f9fa; color: #333; font-size: 0.9rem;">
+            © Erma Rosmawati - Universitas Pendidikan Indonesia 2025
+        </div>
     </footer>
 
     <!-- Bootstrap JS -->

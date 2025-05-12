@@ -36,5 +36,10 @@ class DashboardController extends Controller
     public function tentang(){
         return view('guru.tentang');
     }
+
+    public function pengembang(){
+        return view('guru.pengembang');
+    }
+
 }
 

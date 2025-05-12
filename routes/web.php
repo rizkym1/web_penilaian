@@ -63,6 +63,7 @@ Route::post('/penilaian/{tugas}/simpan', [PenilaianController::class, 'simpan'])
 Route::get('/rubrik', [DashboardController::class, 'rubrik'])->name('rubrik.index');
 Route::get('/panduan', [DashboardController::class, 'panduan'])->name('panduan.index');
 Route::get('/tentang', [DashboardController::class, 'tentang'])->name('tentang.index');
+Route::get('/pengembang', [DashboardController::class, 'pengembang'])->name('pengembang.index');
 // Route::get('/export', function () {
 //   return Excel::download(new PenilaianExport, 'penilaian.xlsx');
 // })->name('penilaian.export');

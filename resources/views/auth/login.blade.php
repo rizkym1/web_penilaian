@@ -173,9 +173,12 @@
             </form>
         </div>
     </div>
-
+    
     <footer class="mt-auto">
         <img src="{{ asset('img/pensil_bawah.png') }}" class="pencils-bottom" alt="Pencils Bottom">
+        <div class="text-center py-3" style="background-color: #f8f9fa; color: #333; font-size: 0.9rem;">
+            © Erma Rosmawati - Universitas Pendidikan Indonesia 2025
+        </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
